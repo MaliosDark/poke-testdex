@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Información de Pokémon</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1 class="text-center mt-4">Información de Pokémon</h1>
+    <div class="container mt-4">
+        <div class="row">
+            {% for pokemon in pokemon_info %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="URL_BASE_PARA_IMAGENES/{{ pokemon['id'] }}.png" class="card-img-top" alt="{{ pokemon['name'] }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pokemon['name'] }}</h5>
+                        <p class="card-text">Altura: {{ pokemon['height'] }} decímetros</p>
+                        <p class="card-text">Peso: {{ pokemon['weight'] }} hectogramos</p>
+                        <p class="card-text">Abilities: {{ pokemon['abilities']|join(', ') }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

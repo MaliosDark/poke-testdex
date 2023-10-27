@@ -1,0 +1,43 @@
+{% include 'header.html' %}
+
+<div class="container">
+    <div class="row">
+        {% for item in POKEAPI %}
+        <div class="pokemon col-3 border border-warning ">
+            <br>
+            <div class="fotos d-flex justify-content-center align-items-center rounded">
+                <img src="{{ item.foto }}" alt="" height="150px"><img src="{{ item.foto_emerald }}" alt="" height="100px">
+            </div>
+            <h2 class="d-flex justify-content-center align-items-center">{{ item.nombre.upper() }}</h2>
+            <div class="divboton d-flex justify-content-center align-items-center">
+                <a type="button" class="btn btn-primary " href="{{ item.url }}">GO TO {{ item.nombre.capitalize() }}</a>
+            </div>
+            <br>
+            <!-- Agregar sección de información detallada -->
+            <div class="info-detalles">
+                <h3>Información Detallada</h3>
+                <ul>
+                    <li>Nombre: {{ item.nombre|capitalize }}</li>
+                    <li>Altura: {{ item.altura }} decímetros</li>
+                    <li>Peso: {{ item.peso }} hectogramos</li>
+                    <li>Abilities: {{ item.abilities|join(', ') }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<div class="botones_nav d-flex justify-content-center align-items-center">
+    {% if nav.previous is defined %}
+        <a type="button" class="btn btn-primary " href="{{ url_for('pokeindex2', url=nav.previous) }}">GO BACK</a>
+    {% endif %}
+    {% if nav.next is defined %}
+        <a type="button" class="btn btn-primary " href="{{ url_for('pokeindex2', url=nav.next) }}">GO NEXT</a>
+    {% endif %}
+
+</div>
+
+
+
+{% include 'footer.html' %}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle del Pokémon</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .pokemon-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 100%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .pokemon-card:hover {
+            transform: scale(1.1);
+            background-color: #f0f0f0;
+        }
+
+        .pokemon-image {
+            max-width: 100%;
+        }
+
+        .pokedex-bg {
+            background-color: #eeeeee;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .ver-mas-button {
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .image-gallery img {
+            max-width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body class="pokedex-bg">
+    <div class="container">
+        <h1 class="text-center my-4">Detalle del Pokémon</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pokemon-card">
+                    <div class="image-gallery">
+                        <img src="{{ pokemon['sprites']['front_shiny'] }}" alt="{{ pokemon.name }} (Brillante)">
+                        <img src="{{ pokemon['sprites']['front_default'] }}" alt="{{ pokemon.name }}">
+                        <img src="{{ pokemon['sprites']['back_default'] }}" alt="{{ pokemon.name }} (Espalda)">
+                        <img src="{{ pokemon['sprites']['front_shiny_female'] }}" alt="{{ pokemon.name }} (Hembra Brillante)">
+                        <img src="{{ pokemon['sprites']['front_female'] }}" alt="{{ pokemon.name }} (Hembra)">
+                        <!-- Agrega más imágenes adicionales aquí --> 
+                        <img src="{{ pokemon['sprites']['versions']['generation-vii']['ultra-sun-ultra-moon']['front_default'] }}" alt="{{ pokemon.name }} (Versión Ultra Sun/Ultra Moon)">
+                    </div>
+                    <h2>{{ pokemon.name }}</h2><img src="{{ pokemon['sprites']['versions']['generation-vii']['ultra-sun-ultra-moon']['front_default'] }}" alt="{{ pokemon.name }} (Versión Ultra Sun/Ultra Moon)">
+                    <p><strong>Número:</strong> #{{ pokemon.id }}</p>
+                    <p><strong>Altura:</strong> {{ pokemon.height }}</p>
+                    <p><strong>Peso:</strong> {{ pokemon.weight }}</p>
+                    <p><strong>Tipo(s):</strong>
+                        {% for type in pokemon.types %}
+                        {{ type.type.name }}
+                        {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary ver-mas-button">Volver</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pokemon-card">
+                    <h1>{{ pokemon['forms'][0]['name'] }}</h1>
+                    <div style="display: flex; flex-direction: row;">
+                        <div style="flex: 1;">
+                            <ul>
+                                <li><strong>ID:</strong> {{ pokemon['id'] }}</li>
+                                <li><strong>Base Experience:</strong> {{ pokemon['base_experience'] }}</li>
+                                <li><strong>Height:</strong> {{ pokemon['height'] }}</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1;">
+                            <h2>Abilities:</h2>
+                            <ul>
+                                {% for ability in pokemon['abilities'] %}
+                                    <li>{{ ability['ability']['name'] }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pokemon-card">
+                <h2>Moves:</h2>
+                <ul style="columns: 2;">
+                    {% for move in pokemon['moves'] %}
+                        <li>{{ move['move']['name'] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

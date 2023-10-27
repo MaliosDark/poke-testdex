@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Información de Pokémon</title>
+</head>
+<body>
+    <h1>Información de Pokémon</h1>
+    <ul>
+        <li>Nombre: {{ pokemon_info['name'] }}</li>
+        <li>Altura: {{ pokemon_info['height'] }} decímetros</li>
+        <li>Peso: {{ pokemon_info['weight'] }} hectogramos</li>
+        <li>Abilities:
+            <ul>
+                {% for ability in pokemon_info['abilities'] %}
+                <li>{{ ability }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>
